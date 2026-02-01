@@ -8,8 +8,8 @@ def hash_password(password):
     return hashlib.sha256(password.encode()).hexdigest()
 
 
-def login(username, password):
-    with open(DATA_PATH) as f:
+def login(username, password, data_path=DATA_PATH):
+    with open(data_path) as f:
         users = json.load(f)
 
     hashed_input = hash_password(password)

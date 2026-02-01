@@ -9,14 +9,14 @@ def hash_password(password):
     return hashlib.sha256(password.encode()).hexdigest()
 
 
-def register_user(username, password):
+def register_user(username, password, data_path=DATA_PATH):
     if is_empty(username):
         raise ValueError("Username cannot be empty")
 
     if is_empty(password) or len(password) < 6:
         raise ValueError("Password must be at least 6 characters")
 
-    with open(DATA_PATH) as f:
+    with open(data_path) as f:
         users = json.load(f)
 
     users.append({
@@ -24,5 +24,5 @@ def register_user(username, password):
         "password": hash_password(password)
     })
 
-    with open(DATA_PATH, "w") as f:
+    with open(data_path, "w") as f:
         json.dump(users, f, indent=2)
